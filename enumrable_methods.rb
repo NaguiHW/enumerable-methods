@@ -65,6 +65,19 @@ module Enumerable
             true
         end
     end
+
+    def my_none?
+        if block_given?
+            count = 0
+            while count < self.length
+                return false unless !yield(self[count])
+                count += 1
+            end
+            true
+        else
+            false
+        end
+    end
 end
 
 #include Enumerable
@@ -91,9 +104,15 @@ puts "  ***  Testing my_all?  ***  "
 p arr.my_all? { |x| x < 7 }
 puts "=========  This is a separator ========"
 p arr.all? { |x| x < 7 }
-=end
 
 puts "  ***  Testing my_any?  ***  "
-p arr.my_any?
+arr.my_any? { |x| puts x < 4 }
 puts "=========  This is a separator ========"
-p arr.any?
+arr.any? { |x| puts x < 4 }
+
+puts "  ***  Testing my_all?  ***  "
+p arr.my_none? { |x| x < 4 }
+puts "=========  This is a separator ========"
+p arr.none? { |x| x < 4 }
+=end
+
