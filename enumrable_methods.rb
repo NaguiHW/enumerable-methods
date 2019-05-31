@@ -93,7 +93,23 @@ module Enumerable
         end
     end
 
+    def my_map
+        if block_given?
+            count = 0
+            aux = []
+            while count < self.length
+                aux.push(yield(self[count]))
+                count += 1
+            end
+            aux
+        else
+            self
+        end
+    end
 
+    def my_inject
+    
+    end
 end
 
 #include Enumerable
@@ -135,5 +151,10 @@ puts "  ***  Testing my_count  ***  "
 p arr.my_count { |x| x < 4 }
 puts "=========  This is a separator ========"
 p arr.count { |x| x < 4 }
+
+puts "  ***  Testing my_map  ***  "
+p arr.my_map { |x| x * 4 }
+puts "=========  This is a separator ========"
+p arr.map { |x| x * 4 }
 =end
 
