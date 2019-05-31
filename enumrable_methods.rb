@@ -108,11 +108,17 @@ module Enumerable
     end
 
     def my_inject
-    
+        if block_given?
+            count = 0
+            aux = 0
+            while count < self.length - 1
+                count == 0 ? aux = yield(self[count+1], self[count]) : aux = yield(aux, self[count+1])
+                count += 1
+            end
+            aux
+        end
     end
 end
-
-#include Enumerable
 
 arr = [1, 2, 3, 4, 5]
 arr2 = ["apple", "banana", "pineapple"]
@@ -158,3 +164,7 @@ puts "=========  This is a separator ========"
 p arr.map { |x| x * 4 }
 =end
 
+puts "  ***  Testing my_inject  ***  "
+p arr.my_inject { |total, n| total * n }
+puts "=========  This is a separator ========"
+p arr.inject { |total, n| total * n }
