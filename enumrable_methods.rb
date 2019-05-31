@@ -78,6 +78,22 @@ module Enumerable
             false
         end
     end
+
+    def my_count
+        if block_given?
+            count = 0
+            aux = 0
+            while count < self.length
+                aux += 1 if yield(self[count])
+                count += 1
+            end
+            aux
+        else
+            self.length
+        end
+    end
+
+
 end
 
 #include Enumerable
@@ -114,5 +130,10 @@ puts "  ***  Testing my_all?  ***  "
 p arr.my_none? { |x| x < 4 }
 puts "=========  This is a separator ========"
 p arr.none? { |x| x < 4 }
+
+puts "  ***  Testing my_count  ***  "
+p arr.my_count { |x| x < 4 }
+puts "=========  This is a separator ========"
+p arr.count { |x| x < 4 }
 =end
 
