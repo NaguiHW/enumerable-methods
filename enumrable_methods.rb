@@ -27,15 +27,15 @@ module Enumerable
 
   def my_select
     if block_given?
-        count = 0
-        aux = []
-        while count < self.length
-            aux.push(self[count]) if yield(self[count])
-            count += 1
-        end
-        aux
+      count = 0
+      aux = []
+      while count < length
+        aux.push(self[count]) if yield(self[count])
+        count += 1
+      end
+      aux
     else
-        self
+      self
     end
   end
 
@@ -54,14 +54,15 @@ module Enumerable
 
   def my_any?
     if block_given?
-        count = 0
-        while count < self.length
-            return true if yield(self[count])
-            count += 1
-        end
-        false
+      count = 0
+      while count < length
+        return true if yield(self[count])
+
+        count += 1
+      end
+      false
     else
-        true
+      true
     end
   end
 
@@ -74,35 +75,46 @@ module Enumerable
         count += 1
       end
       true
+    else
+      false
     end
-    false
   end
 
-  def my_count
-    if block_given?
+  def my_count(*method)
+    if method.empty?
+      if block_given?
         count = 0
         aux = 0
-        while count < self.length
-            aux += 1 if yield(self[count])
-            count += 1
+        while count < length
+          aux += 1 if yield(self[count])
+          count += 1
         end
         aux
+      else
+        length
+      end
     else
-        self.length
+      count = 0
+      aux = 0
+      while count < length
+        aux += 1 if method[0] == self[count]
+        count += 1
+      end
+      aux
     end
   end
 
   def my_map
     if block_given?
-        count = 0
-        aux = []
-        while count < self.length
-            aux.push(yield(self[count]))
-            count += 1
-        end
-        aux
+      count = 0
+      aux = []
+      while count < length
+        aux.push(yield(self[count]))
+        count += 1
+      end
+      aux
     else
-        self
+      self
     end
   end
 
