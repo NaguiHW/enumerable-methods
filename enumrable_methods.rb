@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This Enumerable module does the same as the Enumerable module by default
 module Enumerable
   def my_each
     if block_given?
@@ -119,14 +120,13 @@ module Enumerable
   end
 
   def my_inject
-    if block_given?
-      count = 0
-      aux = 0
-      while count < length - 1
-        count.zero? ? aux = yield(self[count + 1], self[count]) : aux = yield(aux, self[count + 1])
-        count += 1
-      end
-      aux
+    return self unless block_given?
+    count = 0
+    aux = 0
+    while count < length - 1
+      count.zero? ? aux = yield(self[count + 1], self[count]) : aux = yield(aux, self[count + 1])
+      count += 1
     end
+    aux
   end
 end
